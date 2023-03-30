@@ -12,6 +12,7 @@ export function CartProvider ({ children }) {
 
     // si el producto si está en el carrito
     if (productInCartIndex >= 0) {
+      // una forma seria usando el structuredClone
       const newCart = structuredClone(cart)
       newCart[productInCartIndex].quantity += 1
       return setCart(newCart)

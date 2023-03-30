@@ -3,8 +3,26 @@ import { useId } from 'react'
 import { ClearCartIcon, CartIcon } from './Icons.jsx'
 import { useCart } from '../hooks/useCart'
 
+function CartItem ({ thumbnail, price, title, quantity, addToCart }) {
+  return (
+    <li>
+      <img src={thumbnail} alt={title} />
+      <div>
+        <strong>{title}</strong> - ${price}
+      </div>
+
+      <footer>
+        <small onClick={addToCart}>
+          {quantity}
+        </small>
+        <button onClick={() => addToCart()}>+</button>
+      </footer>
+    </li>
+  )
+}
+
 export function Cart () {
-  const { cart, addToCart } = useCart()
+  const { cart, addToCart, clearCart } = useCart()
   const cartCheckboxId = useId()
 
   return (
@@ -16,27 +34,18 @@ export function Cart () {
 
       <aside className='cart'>
         <ul>
-        {cart.map(product => {
-          return (
-          <li key={product.id}>
-            <img src={product.thumbnail} alt={product.title} />
-            <div>
-              <strong>{product.title}</strong> - ${product.price}
-            </div>
+        {cart.map(product => (
+          <CartItem
+            key={product.id}
+            addToCart={() => addToCart(product)}
+            {...product}
+          />
 
-            <footer>
-              <small>
-                {product.quantity}
-              </small>
-              <button onClick={() => addToCart(product)}>+</button>
-            </footer>
-          </li>
-
-          )
-        })}
+        )
+        )}
         </ul>
 
-        <button>
+        <button onClick={() => clearCart()}>
           <ClearCartIcon />
         </button>
       </aside>
