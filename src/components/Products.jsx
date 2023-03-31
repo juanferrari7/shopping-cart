@@ -3,16 +3,16 @@ import { AddToCartIcon, RemoveFromCartIcon } from './Icons.jsx'
 import { useCart } from '../hooks/useCart'
 
 export function Products ({ products }) {
-  const { addToCart, cart, removeFromCart } = useCart()
+  const { addToCart, state, removeFromCart } = useCart()
 
   const checkProductInCart = (product) => {
-    return cart.some(item => item.id === product.id)
+    return state.some(item => item.id === product.id)
   }
 
   return (
     <main className='products'>
       <ul>
-        {products.slice(0, 10).map(product => {
+        {products.map(product => {
           const isProductInCart = checkProductInCart(product)
 
           return (

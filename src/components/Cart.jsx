@@ -22,7 +22,7 @@ function CartItem ({ thumbnail, price, title, quantity, addToCart }) {
 }
 
 export function Cart () {
-  const { cart, addToCart, clearCart } = useCart()
+  const { state, addToCart, clearCart } = useCart()
   const cartCheckboxId = useId()
 
   return (
@@ -34,7 +34,7 @@ export function Cart () {
 
       <aside className='cart'>
         <ul>
-        {cart.map(product => (
+        {state.map(product => (
           <CartItem
             key={product.id}
             addToCart={() => addToCart(product)}
